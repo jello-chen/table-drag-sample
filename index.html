@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Table Drag Sample</title>
+    <link href="css/jquery-ui.min.css" rel="stylesheet">
+    <style type="text/css">
+        * {
+            margin: 0;
+            outline: 0;
+            padding: 0;
+        }
+        
+        body {
+            font: normal 14px/1.4 Helvetica, Arial, sans-serif;
+        }
+        
+        .container {
+            margin: 10px auto;
+            padding: 0 10px;
+        }
+        
+        table {
+            border-collapse: collapse;
+            table-layout: fixed;
+            width: 100%;
+        }
+        
+        td {
+            border: 1px solid #cecece;
+            padding: 10px;
+            vertical-align: top;
+        }
+        
+        th {
+            background: #979c96;
+            border: 1px solid #cecece;
+            padding: 10px;
+            vertical-align: center;
+        }
+        
+        td {
+            background: #fff;
+        }
+        
+        td.has-nested-table {
+            padding: 0;
+        }
+        
+        td.has-nested-table td {
+            border-top: 0;
+            border-right: 0;
+        }
+        
+        td.has-nested-table td:first-child {
+            border-left: 0;
+        }
+        
+        td.has-nested-table>table>tbody>tr:last-child>td {
+            border-bottom: 0;
+        }
+        
+        td.has-nested-table td:only-child {
+            border-bottom-width: 1px;
+        }
+        
+        .handle {
+            cursor: pointer;
+        }
+    </style>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $(".nested-sortable tbody").sortable({
+                handle: ".handle",
+                cursor: "move",
+                items: "> tr",
+                axis: "y",
+                revert: true,
+                placeholder: "ui-state-highlight",
+                helper: function(e, ui) {
+                    ui.children().each(function() {
+                        $(this).width($(this).width());
+                    });
+                    return ui;
+                },
+                start: function(e, ui) {
+
+                },
+                update: function(e, ui) {
+                    console.log(e)
+                },
+                stop: function(e, ui) {
+                    console.log($(".nested-sortable tbody").sortable("toArray"))
+                }
+            })
+
+            $(".container").sortable()
+        })
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div style="padding:10px;background-color:chartreuse;margin-bottom:20px">
+            <table class="nested-sortable">
+                <thead>
+                    <tr>
+                        <th rowspan="2">Name</th>
+                        <th rowspan="2">Course</th>
+                        <th colspan="3">2017 Q1</th>
+                    </tr>
+                    <tr>
+                        <th>2017-01</th>
+                        <th>2017-02</th>
+                        <th>2017-03</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="11">
+                        <td class="handle">Zhang San</td>
+                        <td colspan="4" class="has-nested-table">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Math</td>
+                                        <td>100</td>
+                                        <td>90</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Chinese</td>
+                                        <td>100</td>
+                                        <td>90</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Physics</td>
+                                        <td>100</td>
+                                        <td>90</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Chymist</td>
+                                        <td>100</td>
+                                        <td>90</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Music</td>
+                                        <td>100</td>
+                                        <td>90</td>
+                                        <td>100</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr id="12">
+                        <td class="handle">Li Si</td>
+                        <td colspan="4" class="has-nested-table">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Math</td>
+                                        <td>100</td>
+                                        <td>90</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Chinese</td>
+                                        <td>100</td>
+                                        <td>90</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Physics</td>
+                                        <td>100</td>
+                                        <td>90</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Chymist</td>
+                                        <td>100</td>
+                                        <td>90</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Music</td>
+                                        <td>100</td>
+                                        <td>90</td>
+                                        <td>100</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="padding:10px;background-color:rgb(228, 109, 174);margin-bottom:20px">
+            <table class="nested-sortable">
+                <thead>
+                    <tr>
+                        <th rowspan="2">Name</th>
+                        <th rowspan="2">Course</th>
+                        <th colspan="3">2016 Q1</th>
+                    </tr>
+                    <tr>
+                        <th>2016-01</th>
+                        <th>2016-02</th>
+                        <th>2016-03</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="21">
+                        <td class="handle">Zhang San</td>
+                        <td colspan="4" class="has-nested-table">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Math</td>
+                                        <td>100</td>
+                                        <td>90</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Chinese</td>
+                                        <td>100</td>
+                                        <td>90</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Physics</td>
+                                        <td>100</td>
+                                        <td>90</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Chymist</td>
+                                        <td>100</td>
+                                        <td>90</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Music</td>
+                                        <td>100</td>
+                                        <td>90</td>
+                                        <td>100</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr id="22">
+                        <td class="handle">Li Si</td>
+                        <td colspan="4" class="has-nested-table">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Math</td>
+                                        <td>100</td>
+                                        <td>90</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Chinese</td>
+                                        <td>100</td>
+                                        <td>90</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Physics</td>
+                                        <td>100</td>
+                                        <td>90</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Chymist</td>
+                                        <td>100</td>
+                                        <td>90</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Music</td>
+                                        <td>100</td>
+                                        <td>90</td>
+                                        <td>100</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
