@@ -1,1 +1,1 @@
-# This is a sample about dragging table using jquery-ui 
+# This is a sample about dragging table using jquery-ui
