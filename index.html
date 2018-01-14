@@ -84,6 +84,9 @@
                 placeholder: "ui-state-highlight",
                 helper: function(e, ui) {
                     ui.children().each(function() {
+                        if ($(this).is(".handle")) {
+                            $(this).html($(this).html() + "2");
+                        }
                         $(this).width($(this).width());
                     });
                     return ui;

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jqgrid Drag Sample</title>
+    <link href="css/jquery-ui.min.css" rel="stylesheet">
+    <link href="css/ui.jqgrid.css" rel="stylesheet">
+    <style type="text/css">
+        .handle {
+            cursor: pointer;
+        }
+    </style>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.jqgrid.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+
+            var datagrid1 = [{
+                "ID": 1,
+                "Name": "Zhang San",
+                "Course": "Math",
+                "2017-01": "100",
+                "2017-02": "90",
+                "2017-03": "100"
+            }, {
+                "ID": 2,
+                "Name": "Zhang San",
+                "Course": "Chinese",
+                "2017-01": "100",
+                "2017-02": "90",
+                "2017-03": "100"
+            }, {
+                "ID": 3,
+                "Name": "Zhang San",
+                "Course": "English",
+                "2017-01": "100",
+                "2017-02": "90",
+                "2017-03": "100"
+            }, {
+                "ID": 4,
+                "Name": "Li Si",
+                "Course": "Chinese",
+                "2017-01": "100",
+                "2017-02": "90",
+                "2017-03": "100"
+            }, {
+                "ID": 5,
+                "Name": "Li Si",
+                "Course": "Math",
+                "2017-01": "100",
+                "2017-02": "90",
+                "2017-03": "100"
+            }, {
+                "ID": 6,
+                "Name": "Li Si",
+                "Course": "English",
+                "2017-01": "100",
+                "2017-02": "90",
+                "2017-03": "100"
+            }];
+
+            var datagrid2 = [{
+                "ID": 1,
+                "Name": "Zhang San",
+                "Course": "Math",
+                "2018-01": "100",
+                "2018-02": "90",
+                "2018-03": "100"
+            }, {
+                "ID": 2,
+                "Name": "Zhang San",
+                "Course": "Chinese",
+                "2018-01": "100",
+                "2018-02": "90",
+                "2018-03": "100"
+            }, {
+                "ID": 3,
+                "Name": "Zhang San",
+                "Course": "English",
+                "2018-01": "100",
+                "2018-02": "90",
+                "2018-03": "100"
+            }, {
+                "ID": 4,
+                "Name": "Li Si",
+                "Course": "Chinese",
+                "2018-01": "100",
+                "2018-02": "90",
+                "2018-03": "100"
+            }, {
+                "ID": 5,
+                "Name": "Li Si",
+                "Course": "Math",
+                "2018-01": "100",
+                "2018-02": "90",
+                "2018-03": "100"
+            }, {
+                "ID": 6,
+                "Name": "Li Si",
+                "Course": "English",
+                "2018-01": "100",
+                "2018-02": "90",
+                "2018-03": "100"
+            }];
+
+            jQuery("#jqGrid1").jqGrid({
+                datatype: "local",
+                data: datagrid1,
+                autowidth: true,
+                width: '100%',
+                height: '100%',
+                colModel: [{
+                    label: 'Name',
+                    name: 'Name',
+                    index: 'Name',
+                    cellattr: function(rowId, val, rawObject) {
+                        return " class='handle' ";
+                    }
+                }, {
+                    label: 'Course',
+                    name: 'Course',
+                    index: 'Course'
+                }, {
+                    label: '2017-01',
+                    name: '2017-01',
+                    index: '2017-01'
+                }, {
+                    label: '2017-02',
+                    name: '2017-02',
+                    index: '2017-02'
+                }, {
+                    label: '2017-03',
+                    name: '2017-03',
+                    index: '2017-03'
+                }, {
+                    label: 'ID',
+                    name: 'ID',
+                    index: 'ID',
+                    hidden: true
+                }],
+                rowNum: 3,
+                rowList: [3, 6],
+                viewrecords: true,
+                caption: 'Grid 1',
+                pager: '#Pager1',
+                gridComplete: function() {
+                    //mark("jqGrid1");
+                    //merge("jqGrid1", "Name");
+                }
+            });
+
+            jQuery("#jqGrid2").jqGrid({
+                datatype: "local",
+                data: datagrid2,
+                autowidth: true,
+                width: '100%',
+                height: '100%',
+                colModel: [{
+                    label: 'Name',
+                    name: 'Name',
+                    index: 'Name'
+                }, {
+                    label: 'Course',
+                    name: 'Course',
+                    index: 'Course'
+                }, {
+                    label: '2018-01',
+                    name: '2018-01',
+                    index: '2018-01'
+                }, {
+                    label: '2018-02',
+                    name: '2018-02',
+                    index: '2018-02'
+                }, {
+                    label: '2018-03',
+                    name: '2018-03',
+                    index: '2018-03'
+                }, {
+                    label: 'ID',
+                    name: 'ID',
+                    index: 'ID',
+                    hidden: true
+                }],
+                rowNum: 3,
+                rowList: [3, 6],
+                viewrecords: true,
+                caption: 'Grid 2',
+                pager: '#Pager2'
+            });
+
+            jQuery("#jqGrid1").jqGrid('navGrid', '#Pager1', {
+                edit: false,
+                add: false,
+                del: false
+            });
+            jQuery("#jqGrid1").jqGrid('sortableRows', {
+                update: function(e, ui) {
+                    console.log(getGridRowIndexes("jqGrid1", "ID"));
+                }
+            });
+
+            // jQuery("#jqGrid1").jqGrid('sortableRows', {
+            //     handle: ".handle",
+            //     items: '.jqgrow',
+            //     helper: function(e, ui) {
+            //         // ui.children().each(function() {
+            //         //     if ($(this).is(".handle")) {
+
+            //         //     }
+            //         //     $(this).width($(this).width());
+            //         // });
+            //         return ui;
+            //     },
+            //     update: function(e, ui) {
+            //         console.log(getGridRowIndexes("jqGrid1", "ID"));
+            //     }
+            // });
+
+            jQuery("#jqGrid1").jqGrid('setGroupHeaders', {
+                useColSpanStyle: true,
+                groupHeaders: [{
+                    startColumnName: '2017-01',
+                    numberOfColumns: 3,
+                    titleText: '2017 Q1'
+                }]
+            });
+
+            jQuery("#jqGrid2").jqGrid('navGrid', '#Pager2', {
+                edit: false,
+                add: false,
+                del: false
+            });
+            jQuery("#jqGrid2").jqGrid('sortableRows', {
+                update: function(e, ui) {
+                    console.log(getGridRowIndexes("jqGrid2", "ID"));
+                }
+            });
+            jQuery("#jqGrid2").jqGrid('setGroupHeaders', {
+                useColSpanStyle: true,
+                groupHeaders: [{
+                    startColumnName: '2018-01',
+                    numberOfColumns: 3,
+                    titleText: '2018 Q1'
+                }]
+            });
+        });
+
+        function getGridRowIndexes(gridId, CellName) {
+            var rowIndexes = [];
+            var $grid = jQuery("#" + gridId);
+            var page = $grid.jqGrid('getGridParam', 'page');
+            var rowNum = $grid.jqGrid('getGridParam', 'rowNum');
+            var array = $grid.jqGrid("getCol", CellName, true);
+            for (let index = 0; index < array.length; index++) {
+                const element = array[index];
+                var rowIndex = {};
+                rowIndex[CellName] = element.value;
+                rowIndex["Index"] = (page - 1) * rowNum + index;
+                rowIndexes.push(rowIndex);
+            }
+            return rowIndexes;
+        }
+
+        function mark(gridId) {
+            var $grid = jQuery("#" + gridId);
+            var ids = $grid.jqGrid("getDataIDs");
+            var length = ids.length;
+            for (var i = 0; i < length; i++) {
+                var rowId = ids[i];
+                var tag = $grid.jqGrid("getCell", rowId, "Name");
+                $("#" + rowId).data("tag", tag);
+            }
+        }
+
+        function merge(gridId, CellName) {
+            var $grid = jQuery("#" + gridId);
+            var ids = $grid.jqGrid("getDataIDs");
+            var length = ids.length;
+            for (var i = 0; i < length; i++) {
+                var before = $grid.jqGrid('getRowData', ids[i]);
+                var rowSpanCount = 1;
+                var j = -1;
+                for (j = i + 1; j <= length; j++) {
+                    var end = $grid.jqGrid('getRowData', ids[j]);
+                    if (before[CellName] == end[CellName]) {
+                        rowSpanCount++;
+                        $grid.jqGrid("setCell", ids[j], CellName, '', {
+                            display: 'none'
+                        });
+                    } else {
+                        $grid.jqGrid("setCell", ids[i], CellName, '', null, {
+                            rowspan: rowSpanCount
+                        });
+                        break;
+                    }
+                }
+                i = j - 1;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div style="padding:10px;background-color:chartreuse;margin-bottom:20px">
+            <table id="jqGrid1"></table>
+            <div id="Pager1"></div>
+        </div>
+        <div style="padding:10px;background-color:rgb(228, 109, 174);margin-bottom:20px">
+            <table id="jqGrid2"></table>
+            <div id="Pager2"></div>
+        </div>
+    </div>
+</body>
+
+</html>
